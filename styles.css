@@ -1,0 +1,46 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Anton", sans-serif;
+}
+
+form,
+input,
+button {
+  font-family: "Anton", sans-serif;
+}
+
+.logo {
+  width: 200px;
+  margin: 0 auto;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  max-width: 320px;
+  margin: 35px auto;
+}
+
+input {
+  color: blue;
+  background-color: aqua;
+  border: 0px;
+  padding: 16px;
+  border-radius: 10px;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+button {
+  color: green;
+  background-color: sandybrown;
+  border: 0px;
+  padding: 16px;
+  border-radius: 10px;
+  font-size: 20px;
+  text-align: center;
+  margin-top: 5px;
+}
