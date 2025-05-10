@@ -15,6 +15,7 @@ const shoppingListDB = ref(database, "ScreamingGrandma");
 
 const inputFieldEl = document.getElementById("input-field");
 const buttonAddEl = document.getElementById("button-add");
+const shoppingListEL = document.getElementById("shopping-list");
 
 buttonAddEl.addEventListener("click", function () {
   if (inputFieldEl.value) {
@@ -22,6 +23,7 @@ buttonAddEl.addEventListener("click", function () {
     push(shoppingListDB, inputFieldValue);
     console.log(inputFieldValue);
 
+    shoppingListEL.innerHTML += `<li>${inputFieldValue}</li>`;
     inputFieldEl.value = "";
   }
 });
