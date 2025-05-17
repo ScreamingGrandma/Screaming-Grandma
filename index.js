@@ -3,6 +3,7 @@ import {
   getDatabase,
   ref,
   push,
+  onValue,
 } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-database.js";
 const firebaseConfig = {
   databaseURL: "https://mobile-app-7c351-default-rtdb.firebaseio.com/",
@@ -23,11 +24,25 @@ buttonAddEl.addEventListener("click", function () {
 
     push(shoppingListDB, inputFieldValue);
 
-    appenItemToShoppingListEl(inputFieldValue);
     clearInputFieldEl();
   }
 });
+onValue(shoppingListDB, function (snapshot) {
+  if (snapshot.val() !== null) {
+    let shoppingListAray = Object.values(snapshot.val());
+    clearShoppingListEl();
 
+    for (let i = 0; i < shoppingListAray.length; i++) {
+      appenItemToShoppingListEl(shoppingListAray[i]);
+    }
+
+    console.log(shoppingListAray);
+  }
+
+  function clearShoppingListEl() {
+    shoppingListEL.innerHTML = "";
+  }
+});
 function clearInputFieldEl() {
   inputFieldEl.value = "";
 }
