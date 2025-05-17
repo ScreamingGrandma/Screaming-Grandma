@@ -20,10 +20,18 @@ const shoppingListEL = document.getElementById("shopping-list");
 buttonAddEl.addEventListener("click", function () {
   if (inputFieldEl.value) {
     const inputFieldValue = inputFieldEl.value;
-    push(shoppingListDB, inputFieldValue);
-    console.log(inputFieldValue);
 
-    shoppingListEL.innerHTML += `<li>${inputFieldValue}</li>`;
-    inputFieldEl.value = "";
+    push(shoppingListDB, inputFieldValue);
+
+    appenItemToShoppingListEl(inputFieldValue);
+    clearInputFieldEl();
   }
 });
+
+function clearInputFieldEl() {
+  inputFieldEl.value = "";
+}
+
+function appenItemToShoppingListEl(inputFieldValue) {
+  shoppingListEL.innerHTML += `<li>${inputFieldValue}</li>`;
+}
