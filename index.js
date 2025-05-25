@@ -4,6 +4,7 @@ import {
   ref,
   push,
   onValue,
+  remove,
 } from "https://www.gstatic.com/firebasejs/11.7.1/firebase-database.js";
 const firebaseConfig = {
   databaseURL: "https://mobile-app-7c351-default-rtdb.firebaseio.com/",
@@ -29,14 +30,24 @@ buttonAddEl.addEventListener("click", function () {
 });
 onValue(shoppingListDB, function (snapshot) {
   if (snapshot.val() !== null) {
-    let shoppingListAray = Object.values(snapshot.val());
+    let shoppingListAray = Object.entries(snapshot.val());
     clearShoppingListEl();
 
     for (let i = 0; i < shoppingListAray.length; i++) {
-      appenItemToShoppingListEl(shoppingListAray[i]);
+      let currentItem = shoppingListAray[i];
+      // let currentItemID = currentItem[0];
+      // let currentItemValue = currentItem[1];
+
+      // console.log(currentItem);
+      // console.log(currentItemID);
+      // console.log(currentItemValue);
+
+      appenItemToShoppingListEl(currentItem);
     }
 
-    console.log(shoppingListAray);
+    // console.log(shoppingListAray);
+  } else {
+    clearShoppingListEl();
   }
 
   function clearShoppingListEl() {
@@ -47,6 +58,23 @@ function clearInputFieldEl() {
   inputFieldEl.value = "";
 }
 
-function appenItemToShoppingListEl(inputFieldValue) {
-  shoppingListEL.innerHTML += `<li>${inputFieldValue}</li>`;
+function appenItemToShoppingListEl(item) {
+  let itemID = item[0];
+  let itemValue = item[1];
+
+  let newLiEL = document.createElement("li");
+
+  newLiEL.addEventListener("dblclick", function () {
+    console.log(itemValue);
+
+    let extractlocationofTheItemInDb = ref(
+      database,
+      `ScreamingGrandma/${itemID}`
+    );
+    remove(extractlocationofTheItemInDb);
+  });
+
+  newLiEL.textContent = itemValue;
+
+  shoppingListEL.append(newLiEL);
 }
